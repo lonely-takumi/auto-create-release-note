@@ -1,0 +1,39 @@
+name: Add label on pull request
+
+on:
+    pull_request:
+        types: [opened, reopened]
+
+permissions:
+    id-token: write
+    contents: write
+
+jobs:
+    add-label:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              
+            - name: Get PR number
+              id: pr_number
+              run: |
+                echo "${{ github.ref }}"
+                echo "${{ github.head_ref}}"
+                
+            - name: Add label
+              env:
+                GH_TOKEN: ${{ github.token }}
+              run: |
+                baranchName=$(echo "${{ github.head_ref }}" | cut -d "/" -f 3)
+                echo "$branchName"
+                branchNamePrefix=$(echo "$branchName" | cut -d "-" -f 1)
+                echo "$branchNamePrefix"
+                if [ "$branchNamePrefix" = "create" ]; then
+                  label="Add"
+                elif [ "$branchNamePrefix" = "fix" ]; then
+                  label="fix"
+                fi
+                number=$(echo "${{ github.ref }}" | cut -d "/" -f 3)
+                echo "$number"
+                gh pr edit "$number" --add-label "$label"
