@@ -25,9 +25,7 @@ jobs:
               env:
                 GH_TOKEN: ${{ github.token }}
               run: |
-                baranchName=$(echo "${{ github.head_ref }}" | cut -d "/" -f 3)
-                echo "$branchName"
-                branchNamePrefix=$(echo "$branchName" | cut -d "-" -f 1)
+                branchNamePrefix=$(echo "${{ github.head_ref }}" | cut -d "-" -f 1)
                 echo "$branchNamePrefix"
                 if [ "$branchNamePrefix" = "create" ]; then
                   label="Add"
