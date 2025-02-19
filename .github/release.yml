@@ -1,0 +1,11 @@
+changelog:
+  categories:
+    - title: Added
+      labels:
+        - Added
+    - title: Fixed
+      labels:
+        - Fixed
+    - title: Other Changes
+      labels:
+        - "*"
