@@ -27,10 +27,11 @@ jobs:
               run: |
                 branchNamePrefix=$(echo "${{ github.head_ref }}" | cut -d "-" -f 1)
                 echo "$branchNamePrefix"
+                label=""
                 if [[ "$branchNamePrefix" = "create" || "$branchNamePrefix" = "add" ]]; then
                   label="Add"
                 elif [ "$branchNamePrefix" = "fix" ]; then
-                  label="fix"
+                  label="Fix"
                 fi
                 number=$(echo "${{ github.ref }}" | cut -d "/" -f 3)
                 echo "$number"
