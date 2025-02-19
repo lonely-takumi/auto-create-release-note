@@ -2,10 +2,10 @@ changelog:
   categories:
     - title: Added
       labels:
-        - Added
+        - Add
     - title: Fixed
       labels:
-        - Fixed
+        - Fix
     - title: Other Changes
       labels:
         - "*"
