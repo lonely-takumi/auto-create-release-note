@@ -33,6 +33,7 @@ jobs:
                 elif [ "$branchNamePrefix" = "fix" ]; then
                   label="Fix"
                 fi
+                echo "$label"
                 number=$(echo "${{ github.ref }}" | cut -d "/" -f 3)
                 echo "$number"
-                gh pr edit "$number" --add-label "$label"
+                gh pr edit "$number" --add-label $label
