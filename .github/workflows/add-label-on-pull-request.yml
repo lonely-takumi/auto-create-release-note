@@ -27,7 +27,7 @@ jobs:
               run: |
                 branchNamePrefix=$(echo "${{ github.head_ref }}" | cut -d "-" -f 1)
                 echo "$branchNamePrefix"
-                if [ "$branchNamePrefix" = "create" ]; then
+                if [ "$branchNamePrefix" = "create" || "$branchNamePrefix" = "add" ]; then
                   label="Add"
                 elif [ "$branchNamePrefix" = "fix" ]; then
                   label="fix"
