@@ -26,15 +26,11 @@ jobs:
               env:
                 GH_TOKEN: ${{ github.token }}
               run: |
-                branchNamePrefix=$(echo "${{ github.head_ref }}" | cut -d "-" -f 1)
-                echo "$branchNamePrefix"
-                label=""
-                if [[ "$branchNamePrefix" = "create" || "$branchNamePrefix" = "add" ]]; then
-                  label="Add"
-                elif [ "$branchNamePrefix" = "fix" ]; then
-                  label="Fix"
-                fi
-                echo "$label"
-                number=$(echo "${{ github.ref }}" | cut -d "/" -f 3)
-                echo "$number"
-                gh pr edit "$number" --add-label $label
+                source ${{ github.workspace }}/.github/scripts/shell.sh
+         
+                branchNamePrefix=$(echo "${{ github.head_ref }}" | cut -d "-" -f 2)
+                labelName=$(getPullRequestLabelName "$branchNamePrefix")
+         
+                pullRequestNumber=$(echo "${{ github.ref }}" | cut -d "/" -f 3)
+         
+                gh pr edit "$pullRequestNumber" --add-label "$labelName"
