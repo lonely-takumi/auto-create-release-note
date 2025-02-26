@@ -30,7 +30,8 @@ jobs:
          
                 branchNamePrefix=$(echo "${{ github.head_ref }}" | cut -d "-" -f 2)
                 labelName=$(getPullRequestLabelName "$branchNamePrefix")
-         
-                pullRequestNumber=$(echo "${{ github.ref }}" | cut -d "/" -f 3)
-         
-                gh pr edit "$pullRequestNumber" --add-label "$labelName"
+
+                if [ -n "$labelName" ]; then
+                    pullRequestNumber=$(echo "${{ github.ref }}" | cut -d "/" -f 3)
+                    gh pr edit "$pullRequestNumber" --add-label "$labelName"
+                fi
